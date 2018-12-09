@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+		<title>
+				Analytics Wrapper &middot; Wai Lynn Zaw
+		</title>
+	
+		
+  		<link rel="stylesheet" href="/blog/css/style.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+	
+		
+		<link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon.png">
+	
+		
+		<link href="" rel="alternate" type="application/rss+xml" title="Wai Lynn Zaw" />
+	</head>
+	
+    <body>
+        		<nav class="nav">
+			<div class="nav-container">
+				<a href="/blog/">
+					<h2 class="nav-title">Wai Lynn Zaw</h2>
+				</a>
+				<ul>
+    <li><a href="/blog/about">About</a></li>
+    <li><a href="/blog/">Posts</a></li>
+</ul>
+			</div>
+		</nav>
+
+        
+
+<main>
+	<div class="post">
+		<div class="post-info">
+    <span>Written by</span>
+        
+        <br>
+        <span>on&nbsp;</span><time datetime="2017-07-03 10:08:01 &#43;0630 &#43;0630">July 3, 2017</time>
+</div>
+		<h1 class="post-title">Analytics Wrapper</h1>
+<div class="post-line"></div>
+
+		
+
+		
+
+<p>I wrote this library for those who have to sacrifice apk size to add analytics in Android Apps like me.</p>
+
+<p>Google Analytics uses something called <a href="https://developers.google.com/analytics/devguides/collection/protocol/v1/reference">Google Measurement Protocol</a> behind the scenes. This is well documented API and you can built with your desired language easily.</p>
+
+<p>I want to use it in other projects and I don&rsquo;t wanna copy this file again and again. So I wrote this wrapper as Android Dependency and publish it to Jcenter. You can use it freely if you don&rsquo;t want to write a lot of codes.</p>
+
+<h3 id="to-use-it">To use it,</h3>
+
+<h4 id="add-this-line-to-your-module-build-gradle">Add this line to your module <code>build.gradle</code></h4>
+
+<pre><code>compile 'co.monadlab.wailynnzaw:gawrapper:0.0.2'
+</code></pre>
+
+<p>To use it properly, intialize it in your Application class like this,</p>
+
+<pre><code>  AnalyticsWrapper wrapper;
+
+  wrapper = new AnalyticsWrapper.Builder(getContext())
+            .trackerId(GA_PROPERTY_ID)
+            .quietMode(false)
+            .uuid(UUID.randomUUID().toString())
+            .build();
+</code></pre>
+
+<h4 id="note">Note:</h4>
+
+<p>In the <code>uuid</code> field, you should add UUID string and save it with Preferences in order to get the unique user.</p>
+
+<h3 id="usage">Usage</h3>
+
+<p>Get the wrapper instance from your application class.</p>
+
+<p>You can track the <code>screenView</code> easily like -</p>
+
+<pre><code>Application.getWrapper().screenView(&quot;AnalyticsExample&quot;);
+
+</code></pre>
+
+<p>and events like -</p>
+
+<pre><code>Application.getWrapper().event(&quot;Main&quot;, &quot;Share&quot;, &quot;News&quot;, 0);
+</code></pre>
+
+<p>Get the code via <a href="https://www.github.com/wailynnzaw/analytics_wrapper">github repo</a></p>
+
+
+		
+	</div>
+
+	<div class="pagination">
+		<a href="/blog/posts/functional_lens_swift/" class="right arrow">&#8594;</a>
+
+		<a href="#" class="top">Top</a>
+	</div>
+</main>
+
+
+        		<footer>
+			<span>
+			&copy; <time datetime="2018-12-09 21:55:26.243428 &#43;0630 &#43;0630 m=&#43;0.080431783">2018</time> Wai Lynn Zaw. Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
+			</span>
+		</footer>
+
+    </body>
+</html>

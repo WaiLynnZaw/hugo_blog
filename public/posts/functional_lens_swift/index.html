@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+		<title>
+				Functional Lens in Swift &middot; Wai Lynn Zaw
+		</title>
+	
+		
+  		<link rel="stylesheet" href="/blog/css/style.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+	
+		
+		<link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon.png">
+	
+		
+		<link href="" rel="alternate" type="application/rss+xml" title="Wai Lynn Zaw" />
+	</head>
+	
+    <body>
+        		<nav class="nav">
+			<div class="nav-container">
+				<a href="/blog/">
+					<h2 class="nav-title">Wai Lynn Zaw</h2>
+				</a>
+				<ul>
+    <li><a href="/blog/about">About</a></li>
+    <li><a href="/blog/">Posts</a></li>
+</ul>
+			</div>
+		</nav>
+
+        
+
+<main>
+	<div class="post">
+		<div class="post-info">
+    <span>Written by</span>
+        
+        <br>
+        <span>on&nbsp;</span><time datetime="2018-12-09 21:02:35 &#43;0630 &#43;0630">December 9, 2018</time>
+</div>
+		<h1 class="post-title">Functional Lens in Swift</h1>
+<div class="post-line"></div>
+
+		
+
+		<p>Swift Language က Lens အကြောင်း အခြေခံလေးပါ</p>
+
+<p>ထားပါတော့ ကျွန်တော်တို့မှာ <code>Employee</code> ဆိုတဲ့ type ရှိတယ်ပေါ့။ ကျွန်တော်တို့က အဲ့ဒီ <code>Employee</code> ရဲ့ <code>Designation</code> တစ်ခုပဲပါတဲ့ View တစ်ခုဖန်တီးချင်တယ်ပေါ့။ အဲ့ဒီ <code>Designation</code> ကနေ <code>title</code> ဆိုတဲ့ value ကို get လုပ်ပြီးပြချင်တယ်ပေါ့။ နောက် project ရဲ့တစ်နေရာရာမှာ အဲ့ဒီ title ကို ပြင်ချင်တာမျိုးရှိလာနိုင်တယ် ပြီးတော့ အဲ့ဒီ <code>Employee</code> တစ်ခုလုံးကို update လုပ်တာမျိုးပေါ့။ အဲ့တော့ Code အနေနဲ့ကြည့်ရအောင်&hellip;</p>
+
+<pre><code>struct Employee {
+    let name: String
+    let designation: Designation
+}
+
+struct Designation {
+    let title: String
+    let department: String
+}
+</code></pre>
+
+<p>အဲဒီမှာ Employee ရဲ့  title ကိုယူတာကတော့ရှင်းပါတယ်။ <code>employee.designation.title</code> ဆိုပြီးခေါ်လိုက်ရုံပဲ။ အဲ့ဒီ value ကို update လုပ်ဖို့ကျနည်းနည်းရှုပ်သွားပြီ။ ဘာလို့လဲဆိုတော့ ကျွန်တော်တို့က <code>Employee</code> နဲ့ <code>Designation</code> တို့ကို immutable structs အနေနဲ့ declare လုပ်ထားခဲ့လို့။ တစ်ကယ်လို့သာ mutable ဖြစ်ရင်တော့လွယ်လွယ် update လုပ်လိုက်လို့ရတာပေါ့။</p>
+
+<p>အဲ့ဒီနေရာမှာ Lens funtion က အသုံးဝင်လာတာပါပဲ။ Lens ကို လွယ်လွယ်ပြောရရင်
+getter နဲ့ setter ပေါင်းထားတာပါပဲ။ ကျွန်တော်တို့ ဥပမာကိုပဲ ပြောရရင် - <code>employee</code> ရဲ့ <code>designation</code> ကို ယူမယ် ပြီးရင် သူ့ <code>title</code> ကို update လုပ်ပြီး updated လုပ်ထားပြီးသား <code>Designation</code> နဲ့ <code>Employee</code> value အသစ် create လုပ်ပေးမယ်။ Code အနေနဲ့ကြည့်ရအောင် -</p>
+
+<pre><code>struct Lens&lt;A,B&gt; {
+	let from : (A) -&gt; B
+	let to : (B, A) -&gt; A
+}
+</code></pre>
+
+<p>ကျွန်တော်တို့ <code>Designation</code> ရဲ့ <code>title</code> ကို update လုပ်ဖို့ Lens function ကိုဒီလိုမျိုးရေးလို့ရမယ် -</p>
+
+<pre><code>let title : Lens&lt;Designation,String&gt; = Lens(from: { $0.title }, to:{
+	Designation(title: $0, department: $1.department)
+})
+</code></pre>
+
+<p>ပြီးရင် title ကို update လုပ်ဖို့ ဒီလိုမျိုးသုံးလို့ရမယ် -</p>
+
+<pre><code>let newDesignation = title.to(&quot;Mobile Developer&quot;, oldDesignation)
+</code></pre>
+
+<p>တစ်ကယ်လို့ Lens မသုံးခဲ့ဘူးဆိုရင် code ကဒီလိုမျိုးဖြစ်မယ် -</p>
+
+<pre><code>let newDesignation = Designation(title: &quot;Mobile Developer&quot;, department: &quot;Engineering&quot;)
+</code></pre>
+
+<p>ဒီတိုင်းဆို ဘာမှသိပ်မထူးခြားသေးသလိုပဲ။ အဲ့ဒီတော့ ကျွန်တော်တို့ composing lens တွေကို ဆက်ကြည့်ရအောင်။ ခုနက Designation ရဲ့ title ကို update လုပ်ဖို့ ရေးခဲ့တယ်၊ Employee ရဲ့ Designation ကို update လုပ်မယ်ဆိုလည်း တူတူပဲ။ ဒါပေမယ့် Employee ရဲ့ Designation ရဲ့ Title ကို update လုပ်မယ်ဆိုရင်ရော? Code အနေနဲ့ကြည့်ကြည့်ရအောင် -</p>
+
+<pre><code>infix operator =&gt;
+
+func =&gt;&lt;A,B,C&gt;(l: Lens&lt;A,B&gt;, r: Lens&lt;B,C&gt;) -&gt; Lens&lt;A,C&gt; {
+    return Lens(from: { r.from(l.from($0)) }, to: { (c, a) in
+        l.to(r.to(c,l.from(a)), a)
+    })
+}
+</code></pre>
+
+<p>ကျွန်တော်တို့ ဖတ်လို့ပိုကောင်းအောင် infix operator လေးနဲ့သုံးကြည့်မယ်</p>
+
+<pre><code>let employeeTitle = designation =&gt; title
+</code></pre>
+
+<p>Getter အနေနဲ့ဆိုရင် -</p>
+
+<pre><code>let john = Employee(name: &quot;John&quot;, designation: Designation(title: &quot;Programmer&quot;, department: &quot;Engineering&quot;))
+print(employeeTitle.from(john)) // Programmer
+</code></pre>
+
+<p>Update လုပ်မယ်ဆိုရင် -</p>
+
+<pre><code>let john2 = employeeTitle.to(&quot;Mobile Engineer&quot;, john)
+print(john2.designation.title) // Mobile Engineer
+</code></pre>
+
+
+		
+	</div>
+
+	<div class="pagination">
+		<a href="/blog/posts/analytics_wrapper/" class="left arrow">&#8592;</a>
+
+		<a href="#" class="top">Top</a>
+	</div>
+</main>
+
+
+        		<footer>
+			<span>
+			&copy; <time datetime="2018-12-09 21:55:26.243471 &#43;0630 &#43;0630 m=&#43;0.080474686">2018</time> Wai Lynn Zaw. Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
+			</span>
+		</footer>
+
+    </body>
+</html>

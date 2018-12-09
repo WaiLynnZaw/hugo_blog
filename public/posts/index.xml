@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Wai Lynn Zaw</title>
+    <link>http://wailynnzaw.info/blog/posts/</link>
+    <description>Recent content in Posts on Wai Lynn Zaw</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 09 Dec 2018 21:02:35 +0630</lastBuildDate>
+    
+	<atom:link href="http://wailynnzaw.info/blog/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Functional Lens in Swift</title>
+      <link>http://wailynnzaw.info/blog/posts/functional_lens_swift/</link>
+      <pubDate>Sun, 09 Dec 2018 21:02:35 +0630</pubDate>
+      
+      <guid>http://wailynnzaw.info/blog/posts/functional_lens_swift/</guid>
+      <description>Swift Language က Lens အကြောင်း အခြေခံလေးပါ
+ထားပါတော့ ကျွန်တော်တို့မှာ Employee ဆိုတဲ့ type ရှိတယ်ပေါ့။ ကျွန်တော်တို့က အဲ့ဒီ Employee ရဲ့ Designation တစ်ခုပဲပါတဲ့ View တစ်ခုဖန်တီးချင်တယ်ပေါ့။ အဲ့ဒီ Designation ကနေ title ဆိုတဲ့ value ကို get လုပ်ပြီးပြချင်တယ်ပေါ့။ နောက် project ရဲ့တစ်နေရာရာမှာ အဲ့ဒီ title ကို ပြင်ချင်တာမျိုးရှိလာနိုင်တယ် ပြီးတော့ အဲ့ဒီ Employee တစ်ခုလုံးကို update လုပ်တာမျိုးပေါ့။ အဲ့တော့ Code အနေနဲ့ကြည့်ရအောင်&amp;hellip;
+struct Employee { let name: String let designation: Designation } struct Designation { let title: String let department: String }  အဲဒီမှာ Employee ရဲ့ title ကိုယူတာကတော့ရှင်းပါတယ်။ employee.</description>
+    </item>
+    
+    <item>
+      <title>Analytics Wrapper</title>
+      <link>http://wailynnzaw.info/blog/posts/analytics_wrapper/</link>
+      <pubDate>Mon, 03 Jul 2017 10:08:01 +0630</pubDate>
+      
+      <guid>http://wailynnzaw.info/blog/posts/analytics_wrapper/</guid>
+      <description>I wrote this library for those who have to sacrifice apk size to add analytics in Android Apps like me.
+Google Analytics uses something called Google Measurement Protocol behind the scenes. This is well documented API and you can built with your desired language easily.
+I want to use it in other projects and I don&amp;rsquo;t wanna copy this file again and again. So I wrote this wrapper as Android Dependency and publish it to Jcenter.</description>
+    </item>
+    
+  </channel>
+</rss>
