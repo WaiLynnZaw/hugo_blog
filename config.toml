@@ -1,0 +1,7 @@
+baseURL = "http://wailynnzaw.info/blog"
+languageCode = "en-us"
+title = "Wai Lynn Zaw"
+theme = "tale"
+
+[Author]
+    name = "Wai Lynn Zaw"
