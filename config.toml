@@ -1,4 +1,4 @@
-baseURL = "http://wailynnzaw.info/blog"
+baseURL = "https://wailynnzaw.github.io/blog"
 languageCode = "en-us"
 title = "Wai Lynn Zaw"
 theme = "tale"
